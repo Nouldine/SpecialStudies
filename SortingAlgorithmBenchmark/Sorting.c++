@@ -354,7 +354,7 @@ void Sorting::countSortingDigits( std::vector<int> & my_vec, int vec_size, std::
 	std::vector<int> temp_vec(vec_size);
 	
 	for( int i = 0; i < vec_size; ++i )
-		++count[ digit_vec[ i ] ]; // = count[ digit_vec[ i ] ] + 1;
+		++count[ digit_vec[ i ] ];
 
 	for( int i = 1; i < vec_count_size; ++i )
 		count[ i ] += count[ i - 1 ];
@@ -362,7 +362,7 @@ void Sorting::countSortingDigits( std::vector<int> & my_vec, int vec_size, std::
 	for( int i = vec_size - 1; i >= 0; --i )
 	{
 		 temp_vec[ count[ digit_vec[ i ] ] - 1 ] = my_vec[ i ];
-		 --count[ digit_vec[ i ] ]; //= = count[ digit_vec[ i ] ] - 1;
+		 --count[ digit_vec[ i ] ];
 	}
 
 	for( int iter = 0; iter < vec_size; ++iter ) 
