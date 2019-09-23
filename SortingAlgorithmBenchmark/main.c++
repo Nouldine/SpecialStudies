@@ -10,6 +10,7 @@ int main() {
 	std::vector<int> test_vec_2 = test_vec_0;
 	std::vector<int> test_vec_3 = test_vec_0;
 	std::vector<int> test_vec_4 = test_vec_0;
+	std::vector<int> test_vec_5 = test_vec_0;
 
 	clock_t begin_0 = clock();
 	S.insertionSort( test_vec_0 ); 
@@ -71,8 +72,21 @@ int main() {
 
 	double duration_4 = double( end_4 - begin_4) / CLOCKS_PER_SEC;
 
-	 std::cout <<"RadixSort Duration: " << duration_4 <<"ms" << std::endl;
+	std::cout <<"RadixSort Duration: " << duration_4 <<"ms" << std::endl;
 
+	std::cout << std::endl;
+
+        clock_t begin_5 = clock();
+        S.radixSortDiver_1( test_vec_5 );
+        clock_t end_5 = clock();
+
+	/*
+        std::cout <<"RadixSort Version2 Sorted Array: " << std::endl;
+        S.printVector( test_vec_5 );
+	*/
+
+        double duration_5 = double( end_5 - begin_5 ) / CLOCKS_PER_SEC;
+        std::cout <<"RadixSort version_2 Duration: " << duration_5 <<"ms" << std::endl;
 
         return 0;
 }

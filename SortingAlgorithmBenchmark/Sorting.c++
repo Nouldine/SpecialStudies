@@ -341,7 +341,70 @@ void Sorting::radixSortDriver( std::vector<int> & my_vec ) {
 	radixSort( my_vec, my_vec_size );
 }
 
+/***********************************************************************************
+ *
+ *	SECOND VERSION RADIXSORT
+ *
+ ***********************************************************************************/
 
+void Sorting::countSortingDigits( std::vector<int> & my_vec, int vec_size, std::vector<int> & digit_vec ) { 
+	
+	//std::cout <<"Calling Sorting::countSortingDigits( std::vector<int> & my_vec, int vec_size, std::vector<int> & digit_vec )" << std::endl;
+	std::vector<int> count(vec_count_size);
+	std::vector<int> temp_vec(vec_size);
+	
+	for( int i = 0; i < vec_size; ++i )
+		++count[ digit_vec[ i ] ]; // = count[ digit_vec[ i ] ] + 1;
+
+	for( int i = 1; i < vec_count_size; ++i )
+		count[ i ] += count[ i - 1 ];
+
+	for( int i = vec_size - 1; i >= 0; --i )
+	{
+		 temp_vec[ count[ digit_vec[ i ] ] - 1 ] = my_vec[ i ];
+		 --count[ digit_vec[ i ] ]; //= = count[ digit_vec[ i ] ] - 1;
+	}
+
+	for( int iter = 0; iter < vec_size; ++iter ) 
+		 my_vec[ iter ] = temp_vec[ iter ];
+
+	//std::cout <<"End function" << std::endl;
+
+}
+
+void Sorting::RadixSort_1( std::vector<int> & my_vec, int vec_size ) { 
+
+	//std::cout <<"Calling void Sorting::RadixSort_1( std::vector<int> & my_vec, int vec_size " << std::endl;
+
+	int maxElem = maxElement( my_vec );
+	std::vector<int> digit_vec(vec_size);
+	
+	int digitNum = 1;
+	while( ( maxElem / digitNum ) > 0 )
+	{
+		for( int iter = 0; iter < vec_size; ++iter )
+		{ 
+			//std::cout <<"Test 3 " << std::endl;
+			digit_vec[ iter ] = (my_vec[ iter ] / digitNum) % vec_count_size; 
+		}
+		//std::cout <<"Test 4 " << std::endl;
+			
+		countSortingDigits( my_vec, vec_size, digit_vec );
+		//std::cout <<"Test 5 " << std::endl;
+
+		digitNum *= vec_count_size;
+	}
+	//std::cout <<"End function3" << std::endl;
+}
+
+void Sorting::radixSortDiver_1( std::vector<int> & my_vec ) { 
+
+	// std::cout <<"Calling Sorting::radixSortDriver_2( std::vector<int> & my_vec )" << std::endl;
+
+	int vec_size = my_vec.size();
+	RadixSort_1( my_vec, vec_size );
+	//std::cout <<"End function2 " << std::endl;
+}
 
 /***********************************************************************************
  *
@@ -361,7 +424,6 @@ std::vector<int> Sorting::getInput( std::vector<int> & vec_num ) {
 	
 	//std::cout <<"UnSorted Array: " << std::endl;
 	//printVector( vec_num );
-	
 	return vec_num;
 }
 

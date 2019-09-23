@@ -47,6 +47,10 @@ class Sorting {
 		void radixSort( std::vector<int> &, int );
 		void radixSortDriver( std::vector<int> & );
 		
+		void countSortingDigits( std::vector<int> &, int, std::vector<int> & );
+		void RadixSort_1( std::vector<int> &, int ); 
+		void radixSortDiver_1( std::vector<int> & );
+		 
 		/**************** HELPER FUNCTIONS *************************/	
 		std::vector<int> getInput( std::vector<int> & );
 		void printVector( std::vector<int> & );
