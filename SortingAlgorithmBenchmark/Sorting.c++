@@ -3,9 +3,7 @@
 
 /****************************************************************************
  *
- *
  *      INSERTIONSORT PROCEDURES
- *
  *
  ****************************************************************************/                 
 void Sorting::insertionSort( std::vector<int> & vec ) { 
@@ -53,15 +51,43 @@ void Sorting::insertionSortHybrid( std::vector<int> & vec, int left, int right )
         }
 }
 
+int Sorting::insertionSortHybrid_2( std::vector<int> & vec, int left, int right, int vec_size ) {
+
+        //std::cout <<"Calling insertionSort( std::vector<int> & vec, int left, int right )" << std::endl;
+        int middle = vec_size / 2;
+        for( auto it = left + 1; it <= right; ++it ) {
+
+                 value = vec[ it ];
+                 int index = it;
+
+                  while(  index > left && vec[ index - 1 ] > value ) {
+
+                          vec[ index ] = vec[ index - 1 ];
+                          index = index - 1;
+                  }
+
+                  vec[ index ] = value;
+        }
+
+        /*
+        std::cout <<"Inside insertion Sort: " << std::endl;
+        for( auto content : vec  )
+                std::cout << content << " ";
+        std::cout << std::endl;
+        std::cout <<"Middle: " <<  vec[ middle ] << std::endl;
+        */
+        //std::cout <<"Suis la: " << std::endl;
+        std::cout <<"vec[ middle ]: "<< vec[ middle ] << std::endl;
+        return vec[ middle ];
+
+}
+
+
 /****************************************************************************
- *
  *
  *      MERGESORT PROCEDURES
  *
- *
  ****************************************************************************/
-
-
 void Sorting::Merge(  std::vector<int> & main_vec, std::vector<int> & temp_vec, int left, int middle, int right ) { 
 
 	// std::cout <<"Sorting::Merge( std::vector<int> & main_vec, std::vector<int> & left_vec, std::vector<int> &  right_vec )" << std::endl; 
@@ -192,6 +218,8 @@ int Sorting::partition( std::vector<int> & my_vec, int left, int right, int pivo
 
 void Sorting::quickSort( std::vector<int> & my_vec, int left, int right ) { 
 
+	//std::cout <<"Calling Sorting::quickSort( std::vector<int> & my_vec, int left, int right )" << std::endl;
+
 	/*
 	if( left + 10 <= right ) { 
 
@@ -282,6 +310,138 @@ void Sorting::RandomizedQuickSortDriver( std::vector<int> & my_vec ) {
 	randomizedQuickSort( my_vec, left, right );
 }
 
+/*************************************************************
+ *
+ *    DETERMINISTIC  QUICKSORT
+ *
+ *************************************************************/
+
+int Sorting::select_median( std::vector<int> & my_vec, int left, int right, int my_k ) {
+	
+	std::cout <<"Calling select_median( std::vector<int> & my_vec, int right, int left, int my_k)" << std::endl;
+	std::cout <<"my_k: " << my_k << std::endl;
+	std::cout <<"Right: " << right << std::endl;
+	//int n_index = ( right - left + 1 );
+	//std::cout <<"n_index: " << n_index << std::endl;
+
+	if( my_k > 0 && my_k <= right - left + 1  ) {
+
+		std::cout <<"Here " << std::endl;
+		int n_index  = right - left + 1;
+		int median_vec_size = n_index / 5;
+		
+		if( median_vec_size * 5  < n_index ) 
+			++median_vec_size;
+
+		int i;
+		std::vector<int> medians_vec(median_vec_size);
+
+		if( median_vec_size >= 5 ) 
+		{
+			 for( i = 0; i < n_index / 5; ++i )
+				 medians_vec[ i ] =  insertionSortHybrid_2( my_vec, i * 5 + left, i * 5 + 4 + left, 5);
+		}
+		if( i * 5 < n_index )
+		{
+			medians_vec[ i ] = insertionSortHybrid_2( my_vec, i * 5 + left, (i * 5 + left) + (n_index % 5 - 1), n_index % 5);
+			++i;
+		}
+
+		/*
+		for( auto content : median )
+ 			std::cout << content << " ";
+		std::cout << std::endl;
+		*/
+		int medianOfMedian;
+		if( median_vec_size <= 2 )
+			 medianOfMedian = medians_vec[ median_vec_size - 1 ];
+		else
+			medianOfMedian =  select_median( medians_vec, 0,  ( n_index / 5 ) - 1, ( ( n_index / 5 )  / 2 ) );
+		
+		std::cout <<"medianOfMedian: " << medianOfMedian << std::endl;
+
+		int  partition_index = partition_2( my_vec, left, right, medianOfMedian );
+
+		std::cout <<"partition_index: " << partition_index << std::endl;
+
+		if( my_k == ( partition_index - left + 1 ))
+
+                	return medianOfMedian;
+
+        	else if( my_k < ( partition_index - left + 1 ) )
+
+                	return select_median( my_vec, left, partition_index - 1, my_k );
+
+       	 	else
+                	return select_median( my_vec, partition_index + 1, right, my_k - ( partition_index - left + 1 ));
+	
+	}
+
+	return INT_MAX;
+}
+
+void Sorting::quickSortDeterministic( std::vector<int> & my_vec, int left, int right ) {
+
+        //std::cout <<"Calling void Sorting::quickSortDeterministic( std::vector<int> & my_vec, int left, int right )" << std::endl;
+
+        if( left < right ) {
+
+                int k_index = ( right - left + 1 );
+		
+                //std::cout <<"Test1 " << std::endl;
+                int my_index = select_median( my_vec, left, right,  k_index / 2 );
+                std::cout <<"Test2 " << std::endl;
+                int partition_index = partition_2( my_vec, left, right, my_index );
+
+                std::cout <<"My Beautiful test " << std::endl;
+                quickSortDeterministic( my_vec, left, partition_index - 1 );
+                quickSortDeterministic( my_vec, partition_index + 1, right );
+
+        }
+}
+
+int Sorting::partition_2( std::vector<int> & my_vec, int left, int right, int pivot ) {
+
+	//std::cout <<"Calling int Sorting::partition_2( std::vector<int> & my_vec, int left, int right, int pivot )" << std::endl;
+	int i;
+	for( i = left; i <= right; ++i )
+		if( my_vec[ i ] == pivot )
+			break;
+	/*
+	std::swap( my_vec[ i ], my_vec[ right ] );
+ 	int my_pivot =  my_vec[ right ];
+	int partition_index = left - 1;
+	*/
+	
+	int my_index = right - 1;
+	int partition_index = left;
+
+	for( int iter = left; iter <= my_index; ++iter) {
+
+		if( my_vec[ iter ] <= pivot ) {
+
+			std::swap( my_vec[ partition_index ], my_vec[ iter ] );
+			++partition_index;
+		}
+
+	}
+	
+	std::swap( my_vec[ partition_index ], my_vec[ right ] );
+	//std::cout <<"End partition_2 " << std::endl;
+	return partition_index;
+}
+
+void Sorting::quickSortDeterministicDriver( std::vector<int> & my_vec ) {
+
+	std::cout <<"Calling void Sorting::quickSortDeterministicDriver( std::vector<int>  & my_vec )" << std::endl;
+        int left = 0;
+        int right = my_vec.size() - 1;
+        quickSortDeterministic( my_vec, left, right );
+	
+	std::cout <<"QuickSortDeterministicDriver " << std::endl;
+
+}
+
 /***************************************************************************
  *
  *  RADIX SORT
@@ -290,6 +450,7 @@ void Sorting::RandomizedQuickSortDriver( std::vector<int> & my_vec ) {
 
 int Sorting::maxElement( std::vector<int> & my_vec ) { 
 
+	// std::cout <<"Calling int Sorting::maxElement( std::vector<int> & my_vec )" << std::endl;
 	int my_max =  0; 
 	
 	for( int i = 0; i < my_vec.size(); ++i ) {
@@ -337,6 +498,7 @@ void Sorting::radixSort( std::vector<int> & my_vec, int  vec_size ) {
 
 void Sorting::radixSortDriver( std::vector<int> & my_vec ) { 
 
+	//std::cout <<"Calliing void Sorting::radixSortDriver( std::vector<int> & my_vec )" << std::endl;
 	int my_vec_size = my_vec.size();
 	radixSort( my_vec, my_vec_size );
 }
@@ -433,23 +595,4 @@ void Sorting::printVector( std::vector<int> & my_vec ) {
 		std::cout << content << " "; 
 	std::cout << std::endl;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

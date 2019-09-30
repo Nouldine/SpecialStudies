@@ -7,6 +7,7 @@
 #include <iterator>
 #include <random>
 #include <ctime>
+#include <climits>
 
 class Sorting {	
 
@@ -40,6 +41,12 @@ class Sorting {
 		void randomizedQuickSort( std::vector<int> &, int, int );
 		void RandomizedQuickSortDriver( std::vector<int> & );
 	
+		/*********** QUICKSORT WITH MEDIAN OF MEDIAN ***************/
+		int select_median( std::vector<int> &, int, int, int );
+		int insertionSortHybrid_2( std::vector<int> & , int, int, int );
+		void quickSortDeterministic( std::vector<int> & , int , int );
+		void quickSortDeterministicDriver( std::vector<int> & );
+		int partition_2( std::vector<int> & , int, int, int);
 		
 		/********************* RADIX SORT **************************/ 
 

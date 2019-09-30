@@ -1,5 +1,6 @@
 
 #include "Sorting.c++"
+#include "DeterministicQuickSort_2.c++"
 
 int main() {
 
@@ -11,18 +12,20 @@ int main() {
 	std::vector<int> test_vec_3 = test_vec_0;
 	std::vector<int> test_vec_4 = test_vec_0;
 	std::vector<int> test_vec_5 = test_vec_0;
+	std::vector<int> test_vec_6 = test_vec_0;
 
+	/*	
 	clock_t begin_0 = clock();
 	S.insertionSort( test_vec_0 ); 
 	clock_t end_0 = clock();
 	
-		
 	//std::cout <<"InsertionSort Sorted array: "<< std::endl;
 	//S.printVector( test_vec_0 ); 
 
 	double duration_0 = double( end_0 - begin_0 ) / CLOCKS_PER_SEC;
         std::cout <<"Insertion Duration: " << duration_0 <<"ms"<< std::endl;
 	std::cout << std::endl;
+	*/
 
         clock_t begin_1 = clock();
 	S.mergeSortDriver( test_vec_1 );
@@ -41,13 +44,12 @@ int main() {
 	clock_t end_2 = clock();
 
 	std::cout << std::endl;
-
 	
         //std::cout <<"QuickSort Sorted Array: " << std::endl;
 	//S.printVector( test_vec_2 );
         
 	double duration_2 = double( end_2 - begin_2 ) / CLOCKS_PER_SEC;
-        std::cout <<"QuickSort Duration: " << duration_2 <<"ms"<< std::endl;
+        std::cout <<"QuickSort Duration Median of Three: " << duration_2 <<"ms"<< std::endl;
 
 	std::cout << std::endl; 
 
@@ -60,8 +62,21 @@ int main() {
 
 	double duration_3 = double( end_3 - begin_3 ) / CLOCKS_PER_SEC;
 	std::cout <<"Randomized QuickSort Duration: " << duration_3 <<"ms"<< std::endl; 
-
 	std::cout << std::endl;
+
+	
+	
+	clock_t begin_6 = clock();
+        quickSortDeterministicDriver( test_vec_6 );
+        clock_t end_6 = clock();
+	
+        //std::cout <<"Deterministic QuickSort Sorted Array: " << std::endl;
+        //S.printVector( test_vec_6 );
+
+         double duration_6 = double( end_6 - begin_6 ) / CLOCKS_PER_SEC;
+         std::cout <<"Deterministic QuickSort Duration: " << duration_6 <<"ms"<< std::endl;
+	
+        std::cout << std::endl;
 
 	clock_t begin_4 = clock();
 	S.radixSortDriver( test_vec_4 ); 
