@@ -37,14 +37,15 @@ int partition(vector<int>& A, int left, int right, int pivot) {
 	int pivot_val = A[right];
 	int j = left;
 	for (int i = left; i <= right - 1; i++) {
-		if (A[i] < pivot_val) {
-			swap(&A[i], &A[j]);
+		
+		if( A[ i ] < pivot_val ) {
+
+			swap(&A[ i ], &A[ j ]);
 			j++;
 		}
 	}
 
-	swap(&A[j], &A[right]);
-
+	swap( &A[ j ], &A[ right ] );
 	return j;
 
 }
@@ -105,8 +106,7 @@ int SelectionWithMedianOfMedian(vector<int>& A, int left, int right, int k) {
 		// If median[] has only one element, then no need
 		// of recursive call
 
-		int medOfMed = (size <= 2) ? median[0] :
-			SelectionWithMedianOfMedian(median, 0, size - 1, size / 2);
+		int medOfMed = ( size <= 2 ) ? median[ 0 ] : SelectionWithMedianOfMedian(median, 0, size - 1, size / 2 );
 
 		// Partition the array around a random element and
 		// get position of pivot element in sorted array
@@ -124,8 +124,7 @@ int SelectionWithMedianOfMedian(vector<int>& A, int left, int right, int k) {
 		}
 		*/
 
-		int pos = partition(A, left, right, medOfMed );
-
+		int pos = partition( A, left, right, medOfMed );
 
 		// If position is same as k
 		if (pos - left == k - 1)

@@ -14,7 +14,7 @@ int main() {
 	std::vector<int> test_vec_5 = test_vec_0;
 	std::vector<int> test_vec_6 = test_vec_0;
 
-	/*	
+		
 	clock_t begin_0 = clock();
 	S.insertionSort( test_vec_0 ); 
 	clock_t end_0 = clock();
@@ -23,20 +23,19 @@ int main() {
 	//S.printVector( test_vec_0 ); 
 
 	double duration_0 = double( end_0 - begin_0 ) / CLOCKS_PER_SEC;
-        std::cout <<"Insertion Duration: " << duration_0 <<"ms"<< std::endl;
+        std::cout <<"Insertion Duration: " << duration_0 <<"s"<< std::endl;
 	std::cout << std::endl;
-	*/
-
+	
         clock_t begin_1 = clock();
 	S.mergeSortDriver( test_vec_1 );
 	clock_t end_1 = clock();
-
+	
 	
 	//std::cout <<"Merge Sorted Array: " << std::endl;
 	//S.printVector( test_vec_1 );
 
 	double duration_1 = double( end_1 - begin_1 ) / CLOCKS_PER_SEC;
-	std::cout <<"MergeSort Duration: " << duration_1 <<"ms"<< std::endl;
+	std::cout <<"MergeSort Duration: " << duration_1 <<"s"<< std::endl;
 	std::cout << std::endl;
 	
 	clock_t begin_2 = clock();
@@ -49,7 +48,7 @@ int main() {
 	//S.printVector( test_vec_2 );
         
 	double duration_2 = double( end_2 - begin_2 ) / CLOCKS_PER_SEC;
-        std::cout <<"QuickSort Duration Median of Three: " << duration_2 <<"ms"<< std::endl;
+        std::cout <<"QuickSort Duration Median of Three: " << duration_2 <<"s"<< std::endl;
 
 	std::cout << std::endl; 
 
@@ -61,7 +60,7 @@ int main() {
 	//S.printVector( test_vec_3 );
 
 	double duration_3 = double( end_3 - begin_3 ) / CLOCKS_PER_SEC;
-	std::cout <<"Randomized QuickSort Duration: " << duration_3 <<"ms"<< std::endl; 
+	std::cout <<"Randomized QuickSort Duration: " << duration_3 <<"s"<< std::endl; 
 	std::cout << std::endl;
 
 	
@@ -74,7 +73,7 @@ int main() {
         //S.printVector( test_vec_6 );
 
          double duration_6 = double( end_6 - begin_6 ) / CLOCKS_PER_SEC;
-         std::cout <<"Deterministic QuickSort Duration: " << duration_6 <<"ms"<< std::endl;
+         std::cout <<"Deterministic QuickSort Duration: " << duration_6 <<"s"<< std::endl;
 	
         std::cout << std::endl;
 
@@ -87,7 +86,7 @@ int main() {
 
 	double duration_4 = double( end_4 - begin_4) / CLOCKS_PER_SEC;
 
-	std::cout <<"RadixSort Duration: " << duration_4 <<"ms" << std::endl;
+	std::cout <<"RadixSort Duration: " << duration_4 <<"s" << std::endl;
 
 	std::cout << std::endl;
 
@@ -101,7 +100,7 @@ int main() {
 	*/
 
         double duration_5 = double( end_5 - begin_5 ) / CLOCKS_PER_SEC;
-        std::cout <<"RadixSort version_2 Duration: " << duration_5 <<"ms" << std::endl;
+        std::cout <<"RadixSort version_2 Duration: " << duration_5 <<"s" << std::endl;
 
         return 0;
 }
