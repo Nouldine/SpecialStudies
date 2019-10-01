@@ -1,6 +1,5 @@
 
 #include "Sorting.c++"
-#include "DeterministicQuickSort_2.c++"
 
 int main() {
 
@@ -62,11 +61,10 @@ int main() {
 	double duration_3 = double( end_3 - begin_3 ) / CLOCKS_PER_SEC;
 	std::cout <<"Randomized QuickSort Duration: " << duration_3 <<"s"<< std::endl; 
 	std::cout << std::endl;
-
 	
-	
+	/*	
 	clock_t begin_6 = clock();
-        quickSortDeterministicDriver( test_vec_6 );
+        S.quickSortDeterministicDriver( test_vec_6 );
         clock_t end_6 = clock();
 	
         //std::cout <<"Deterministic QuickSort Sorted Array: " << std::endl;
@@ -76,6 +74,7 @@ int main() {
          std::cout <<"Deterministic QuickSort Duration: " << duration_6 <<"s"<< std::endl;
 	
         std::cout << std::endl;
+	*/
 
 	clock_t begin_4 = clock();
 	S.radixSortDriver( test_vec_4 ); 
